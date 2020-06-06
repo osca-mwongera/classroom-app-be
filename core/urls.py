@@ -1,0 +1,27 @@
+""" Core URL Configuration """
+
+from django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
+
+urlpatterns = [
+
+    path('admin/', admin.site.urls),
+
+    path('api/v1/', include('api.urls')),
+
+    path('contact-us/', include('contact.urls')),
+
+    path('', include('properties.urls')),
+
+    path('payments/', include('payments.urls')),
+
+]
+
+admin.site.site_header = "Ambit Rafika Admin"
+
+if settings.DEBUG:
+	import debug_toolbar
+	urlpatterns = [
+		path('__debug__/', include(debug_toolbar.urls)),
+	] + urlpatterns
