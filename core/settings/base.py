@@ -22,9 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.sites',
-    
-    'rest_framework',
-    'rest_framework_gis',
+
     'rest_framework.authtoken',
     'rest_auth',
     'allauth',
@@ -37,8 +35,6 @@ INSTALLED_APPS = [
 
     'accounts',
     'api',
-    'contact',
-    'geodata',
     'payments',
     'properties',
 

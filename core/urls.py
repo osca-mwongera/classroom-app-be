@@ -10,8 +10,6 @@ urlpatterns = [
 
     path('api/v1/', include('api.urls')),
 
-    path('contact-us/', include('contact.urls')),
-
     path('', include('properties.urls')),
 
     path('payments/', include('payments.urls')),
@@ -21,7 +19,8 @@ urlpatterns = [
 admin.site.site_header = "Ambit Rafika Admin"
 
 if settings.DEBUG:
-	import debug_toolbar
-	urlpatterns = [
-		path('__debug__/', include(debug_toolbar.urls)),
-	] + urlpatterns
+    import debug_toolbar
+
+    urlpatterns = [
+                      path('__debug__/', include(debug_toolbar.urls)),
+                  ] + urlpatterns
