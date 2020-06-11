@@ -1,8 +1,9 @@
 from django.urls import path, re_path, include
+from rest_auth.views import PasswordResetConfirmView
 
-from accounts import views as accounts_views
+# from accounts import views as accounts_views
 
-from django.contrib.auth import views as auth_views
+# from django.contrib.auth import views as auth_views
 
 app_name = 'accounts'
 
@@ -43,8 +44,12 @@ urlpatterns = [
     #
     # path('profile/', accounts_views.MyProfile.as_view(), name='my-profile'),
     # path('profile/edit/', accounts_views.ProfileUpdate.as_view(), name='edit-profile'),
-    path('auth/', include('rest_auth.urls')),
+    path('', include('rest_auth.urls')),
 
-    path('auth/register/', include('rest_auth.registration.urls')),
+    path('register/', include('rest_auth.registration.urls')),
+
+    re_path(
+        r'^rest-auth/password/reset/confirm/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$', PasswordResetConfirmView.as_view(),
+            name='password_reset_confirm'),
 
 ]

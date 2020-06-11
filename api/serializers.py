@@ -1,79 +1,79 @@
 from rest_framework import serializers
-from rest_framework_gis import serializers as geo_serializers
+# from rest_framework_gis import serializers as geo_serializers
 from rest_auth.serializers import UserDetailsSerializer
 
 from accounts.models import Profile
-from geodata.models import POI
-from payments.models import Payment, PaymentType
-from properties.models import Category, Property, Facility
+# from geodata.models import POI
+# from payments.models import Payment, PaymentType
+# from properties.models import Category, Property, Facility
 
 
 class RealtorSerializer(serializers.ModelSerializer):
-	fullname = serializers.CharField(read_only=True)
-	email = serializers.CharField(read_only=True)
+    fullname = serializers.CharField(read_only=True)
+    email = serializers.CharField(read_only=True)
 
-	class Meta:
-		model = Profile
-		exclude = ['user', 'created', 'updated', 'is_realtor']
+    class Meta:
+        model = Profile
+        exclude = ['user', 'created', 'updated', 'is_realtor']
 
-
-class CategorySerializer(serializers.ModelSerializer):
-
-	class Meta:
-		model = Category
-		exclude = ['id', 'slug']
-
-
-class FacilitySerializer(serializers.ModelSerializer):
-
-	class Meta:
-		model = Facility
-		fields = ['name',]
-
-
-class PropertySerializer(geo_serializers.GeoFeatureModelSerializer):
-	county = serializers.CharField(read_only=True)
-	image_list = serializers.ListField(read_only=True)
-	category_list = serializers.ListField(read_only=True)
-	facility_list = serializers.ListField(read_only=True)
-
-	class Meta:
-		model = Property
-		geo_field = 'location'
-		exclude = ['created', 'updated', 'slug', 'realtor', 'facilities', 'categories']
+#
+# class CategorySerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Category
+#         exclude = ['id', 'slug']
+#
+#
+# class FacilitySerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Facility
+#         fields = ['name',]
 
 
-class POISerializer(geo_serializers.GeoFeatureModelSerializer):
-
-	class Meta:
-		model = POI
-		geo_field = 'location'
-		exclude = ['created', 'updated']
-
-
-class PaymentTypeSerializer(serializers.ModelSerializer):
-
-	class Meta:
-		model = PaymentType
-		exclude = ['created', 'updated', 'slug']
+# class PropertySerializer(geo_serializers.GeoFeatureModelSerializer):
+# 	county = serializers.CharField(read_only=True)
+# 	image_list = serializers.ListField(read_only=True)
+# 	category_list = serializers.ListField(read_only=True)
+# 	facility_list = serializers.ListField(read_only=True)
+#
+# 	class Meta:
+# 		model = Property
+# 		geo_field = 'location'
+# 		exclude = ['created', 'updated', 'slug', 'realtor', 'facilities', 'categories']
 
 
-class PaymentSerializer(serializers.ModelSerializer):
-	payment_type = PaymentTypeSerializer()
-	property_name = serializers.CharField(read_only=True)
-	receipt_number = serializers.CharField(read_only=True)
-	mpesa_amount = serializers.FloatField(read_only=True)
-
-	class Meta:
-		model = Payment
-		exclude = ['transaction', 'client', 'property_item', 'checkout_request_id']
+# class POISerializer(geo_serializers.GeoFeatureModelSerializer):
+#
+# 	class Meta:
+# 		model = POI
+# 		geo_field = 'location'
+# 		exclude = ['created', 'updated']
 
 
-class PaymentCreateSerializer(serializers.ModelSerializer):
-	
-	class Meta:
-		model = Payment
-		fields = ['property_item']
+# class PaymentTypeSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = PaymentType
+#         exclude = ['created', 'updated', 'slug']
+#
+#
+# class PaymentSerializer(serializers.ModelSerializer):
+#     payment_type = PaymentTypeSerializer()
+#     property_name = serializers.CharField(read_only=True)
+#     receipt_number = serializers.CharField(read_only=True)
+#     mpesa_amount = serializers.FloatField(read_only=True)
+#
+#     class Meta:
+#         model = Payment
+#         exclude = ['transaction', 'client', 'property_item', 'checkout_request_id']
+
+
+# class PaymentCreateSerializer(serializers.ModelSerializer):
+#
+#     class Meta:
+#         model = Payment
+#         fields = ['property_item']
 
 
 class ProfileSerializer(UserDetailsSerializer):

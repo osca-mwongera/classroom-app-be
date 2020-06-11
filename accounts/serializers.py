@@ -5,18 +5,11 @@ from accounts.models import Profile
 
 class ProfileSerializer(UserDetailsSerializer):
     avatar = serializers.ImageField(source='profile.avatar')
-    gender = serializers.CharField(source='profile.gender')
     phone_number = serializers.CharField(source='profile.phone_number')
-    alt_phone = serializers.CharField(source='profile.alt_phone')
-    address = serializers.CharField(source='profile.address')
-    zip_code = serializers.CharField(source='profile.zip_code')
-    town = serializers.CharField(source='profile.town')
-    region = serializers.CharField(source='profile.region')
-    is_realtor = serializers.BooleanField(source='profile.is_realtor')
+    is_tutor = serializers.BooleanField(source='profile.is_tutor')
 
     class Meta(UserDetailsSerializer.Meta):
-        fields = UserDetailsSerializer.Meta.fields + (
-            'avatar', 'phone_number', 'is_tutor')
+        fields = UserDetailsSerializer.Meta.fields + ('avatar', 'phone_number', 'is_tutor')
 
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('profile', {})
