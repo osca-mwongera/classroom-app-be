@@ -1,6 +1,5 @@
 from rest_framework import serializers
 from rest_auth.serializers import UserDetailsSerializer
-from accounts.models import Profile
 
 
 class ProfileSerializer(UserDetailsSerializer):
@@ -14,12 +13,14 @@ class ProfileSerializer(UserDetailsSerializer):
     def update(self, instance, validated_data):
         profile_data = validated_data.pop('profile', {})
         instance = super(ProfileSerializer, self).update(instance, validated_data)
-
         profile = instance.profile
         if profile_data:
-            if profile_data.get('avatar'): profile.avatar = profile_data.get('avatar')
-            if profile_data.get('phone_number'): profile.phone_number = profile_data.get('phone_number')
-            if profile_data.get('is_tutor'): profile.is_realtor = profile_data.get('is_tutor')
+            if profile_data.get('avatar'):
+                profile.avatar = profile_data.get('avatar')
+            if profile_data.get('phone_number'):
+                profile.phone_number = profile_data.get('phone_number')
+            if profile_data.get('is_tutor'):
+                profile.is_realtor = profile_data.get('is_tutor')
             profile.save()
 
         return instance

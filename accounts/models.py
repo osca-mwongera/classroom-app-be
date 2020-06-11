@@ -36,17 +36,11 @@ class User(AbstractUser):
 
 
 class Profile(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-
     avatar = models.ImageField(upload_to='avatars/%Y%m%d')
-    # gender = models.CharField(max_length=25, choices=GENDER_CHOICES)
     phone_number = models.CharField(max_length=13)
-    # address = models.CharField(max_length=99, null=True)
-    # zip_code = models.CharField(max_length=5, null=True)
-    # town = models.CharField(max_length=99, null=True)
-    # region = models.CharField(max_length=99, null=True)
     is_tutor = models.BooleanField(default=False)
-
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
