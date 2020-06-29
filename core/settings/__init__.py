@@ -4,7 +4,8 @@ try:
     from .local import *
 
     live = False
-except ImportError:
+except Exception as e:
+    print(e)
     live = True
 
 if live:
