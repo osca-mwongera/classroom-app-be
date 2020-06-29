@@ -13,22 +13,22 @@ ALLOWED_HOSTS = ['*']
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': config('PROD_DB_NAME'),
-        'USER': config('PROD_DB_USER'),
-        'PASSWORD': config('PROD_DB_PASSWORD'),
-        'HOST': config('PROD_DB_HOST'),
-        'PORT': config('PROD_DB_PORT')
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.contrib.gis.db.backends.postgis',
+#         'NAME': config('PROD_DB_NAME'),
+#         'USER': config('PROD_DB_USER'),
+#         'PASSWORD': config('PROD_DB_PASSWORD'),
+#         'HOST': config('PROD_DB_HOST'),
+#         'PORT': config('PROD_DB_PORT')
+#     }
+# }
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
-STATIC_URL = '/static/'
-MEDIA_URL = '/media/'
+# STATIC_URL = '/static/'
+# MEDIA_URL = '/media/'
 # DEFAULT_FILE_STORAGE = AWS_FILE_STORAGE
 # STATICFILES_STORAGE = AWS_STATICFILES_STORAGE
 # AWS_ACCESS_KEY_ID = ACCESS_KEY_ID
@@ -52,4 +52,9 @@ MEDIA_URL = '/media/'
 # CELERY_TASK_SERIALIZER = 'json'
 # CELERY_RESULT_SERIALIZER = 'json'
 # CELERY_TIMEZONE = 'Africa/Nairobi'
+DATABASES = {
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL')
+    )
+}
 django_heroku.settings(locals())
