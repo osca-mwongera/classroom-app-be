@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 
 ]
 
-
 ROOT_URLCONF = 'core.urls'
 
 TEMPLATES = [
@@ -62,6 +61,7 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,7 +75,6 @@ MIDDLEWARE = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
@@ -85,14 +84,12 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Site admins
 
 ADMINS = (
     ('Mohammed Mwijaa', 'mm.mwijaa@gmail.com'),
     ('Oscar Mwongera', 'oscamwongera@gmail.com')
 )
-
 
 # Email Settings
 
@@ -102,7 +99,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 # EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
 
 
 # Auth settings
@@ -117,7 +113,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True   
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
 ACCOUNT_EMAIL_VERIFICATION = 'none'
@@ -134,7 +130,6 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.ProfileSerializer'
 }
 
-
 # Leaflet settings for geodjango admin
 
 LEAFLET_CONFIG = {
@@ -145,7 +140,6 @@ LEAFLET_CONFIG = {
     'SCALE': 'both',
     'ATTRIBUTION_PREFIX': 'Off to the next step #OscaMwongera',
 }
-
 
 # DRF Settings
 
@@ -162,8 +156,6 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-
-
 # Mpesa Settings
 
 # BUSINESS_SHORT_CODE = config('BUSINESS_SHORT_CODE')
@@ -172,3 +164,6 @@ SITE_ID = 1
 # CONSUMER_KEY = config('CONSUMER_KEY')
 # CONSUMER_SECRET = config('CONSUMER_SECRET')
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
