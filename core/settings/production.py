@@ -57,4 +57,4 @@ DATABASES = {
         default=config('DATABASE_URL')
     )
 }
-django_heroku.settings(locals())
+# django_heroku.settings(locals())
