@@ -22,28 +22,24 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.gis',
     'django.contrib.sites',
-    
+
     'rest_framework',
-    'rest_framework_gis',
     'rest_framework.authtoken',
     'rest_auth',
     'allauth',
     'allauth.account',
-    'allauth.socialaccount',
+    # 'allauth.socialaccount',
     'rest_auth.registration',
-    'storages',
-    'widget_tweaks',
-    'leaflet',
+    # 'storages',
+    # 'widget_tweaks',
+    # 'leaflet',
 
     'accounts',
-    'api',
-    'contact',
-    'geodata',
-    'payments',
-    'properties',
+    # 'api',
+    # 'payments',
+    # 'properties',
 
 ]
-
 
 ROOT_URLCONF = 'core.urls'
 
@@ -65,6 +61,7 @@ TEMPLATES = [
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,11 +70,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 
-    'properties.middleware.PropertyMiddleware',
+    # 'properties.middleware.PropertyMiddleware',
 ]
 
 WSGI_APPLICATION = 'core.wsgi.application'
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
@@ -88,7 +84,6 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-
 # Site admins
 
 ADMINS = (
@@ -96,23 +91,21 @@ ADMINS = (
     ('Oscar Mwongera', 'oscamwongera@gmail.com')
 )
 
-
 # Email Settings
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = config('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_USE_TLS = True
+# EMAIL_PORT = 587
+# EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+# EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
 
 # Auth settings
 
-LOGIN_URL = 'accounts:login'
-LOGIN_REDIRECT_URL = 'properties:home'
-LOGOUT_REDIRECT_URL = 'properties:home'
+# LOGIN_URL = 'accounts:login'
+# LOGIN_REDIRECT_URL = 'properties:home'
+# LOGOUT_REDIRECT_URL = 'properties:home'
 
 
 # Authentication settings
@@ -120,9 +113,13 @@ LOGOUT_REDIRECT_URL = 'properties:home'
 
 AUTH_USER_MODEL = 'accounts.User'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
-ACCOUNT_EMAIL_REQUIRED = True   
+ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_SIGNUP_PASSWORD_ENTER_TWICE = False
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+OLD_PASSWORD_FIELD_ENABLED = True
+LOGOUT_ON_PASSWORD_CHANGE = True
+# EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 
 AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
@@ -130,9 +127,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'api.serializers.ProfileSerializer'
+    'USER_DETAILS_SERIALIZER': 'accounts.serializers.ProfileSerializer'
 }
-
 
 # Leaflet settings for geodjango admin
 
@@ -144,7 +140,6 @@ LEAFLET_CONFIG = {
     'SCALE': 'both',
     'ATTRIBUTION_PREFIX': 'Off to the next step #OscaMwongera',
 }
-
 
 # DRF Settings
 
@@ -161,22 +156,13 @@ REST_FRAMEWORK = {
 
 SITE_ID = 1
 
-
-# Mapbox settings
-
-MAPBOX_API_KEY = config('MAPBOX_API_KEY')
-
-
 # Mpesa Settings
 
-BUSINESS_SHORT_CODE = config('BUSINESS_SHORT_CODE')
-PHONE_NUMBER = config('PHONE_NUMBER')
-LNM_PASSKEY = config('LNM_PASSKEY')
-CONSUMER_KEY = config('CONSUMER_KEY')
-CONSUMER_SECRET = config('CONSUMER_SECRET')
-
-# Geospatial libraries
-# These are Heroku settings, may change for other cloud provider
-
-GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH')
-GEOS_LIBRARY_PATH = os.environ.get('GEOS_LIBRARY_PATH')
+# BUSINESS_SHORT_CODE = config('BUSINESS_SHORT_CODE')
+# PHONE_NUMBER = config('PHONE_NUMBER')
+# LNM_PASSKEY = config('LNM_PASSKEY')
+# CONSUMER_KEY = config('CONSUMER_KEY')
+# CONSUMER_SECRET = config('CONSUMER_SECRET')
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )

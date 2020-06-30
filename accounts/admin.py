@@ -12,9 +12,9 @@ class CustomUserAdmin(UserAdmin):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-	list_display = ['pk', 'fullname', 'gender', 'phone_number', 'town', 'is_realtor', 'updated']
+	list_display = ['pk', 'fullname', 'phone_number', 'is_tutor', 'created', 'updated']
 	list_display_links = ['fullname']
-	list_filter = ['is_realtor', 'gender']
+	list_filter = ['is_tutor']
 
 
 admin.site.register(User, CustomUserAdmin)

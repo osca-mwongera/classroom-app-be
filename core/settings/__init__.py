@@ -1,9 +1,11 @@
-import os
+from .base import *
 
-if 'RAFIKA_ENV' in os.environ:
-	if os.environ['RAFIKA_ENV'] == 'staging':
-		from . staging import *
-	else:
-		from . production import *
-else:
-	from . local import *
+try:
+    from .local import *
+
+    live = False
+except ImportError:
+    live = True
+
+if live:
+    from .production import *
