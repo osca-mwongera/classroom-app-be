@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'django.contrib.gis',
     'django.contrib.sites',
+    'taggit'
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     # 'api',
     # 'payments',
     # 'properties',
+    'classes',
 
 ]
 
