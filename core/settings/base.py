@@ -22,7 +22,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # 'django.contrib.gis',
     'django.contrib.sites',
-    'taggit'
 
     'rest_framework',
     'rest_framework.authtoken',
@@ -31,6 +30,7 @@ INSTALLED_APPS = [
     'allauth.account',
     # 'allauth.socialaccount',
     'rest_auth.registration',
+    'taggit',
     # 'storages',
     # 'widget_tweaks',
     # 'leaflet',
