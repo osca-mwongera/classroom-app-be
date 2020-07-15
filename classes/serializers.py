@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from taggit_serializer.serializers import (TagListSerializerField, TaggitSerializer)
-from .models import Lesson
+from .models import Lesson, Category
+
+
 class CategorySerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
     name = serializers.CharField(max_length=255)
@@ -18,19 +20,26 @@ class CategorySerializer(serializers.Serializer):
 
 class LessonSerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
-    category = CategorySerializer(many=False)
+    category = serializers.PrimaryKeyRelatedField(many=False, queryset=Category.objects.all())
     name = serializers.CharField(max_length=255)
     description = serializers.CharField()
-    comments_enabled = serializers.BooleanField(default=True)
+    comments_enabled = serializers.BooleanField()
     file = serializers.FileField()
-    tags = TaggitSerializer()
+    tags = serializers.ListField(child=serializers.CharField(max_length=30))
+    # readable_tags = TaggitSerializer(read_only=True)
+
+    # class Meta:
+    #     fields = ['id', 'category', 'name', 'description', 'comments_enabled', 'file', 'readable_tags']
 
     def create(self, validated_data):
         user = None
         request = self.context.get("request")
         if request and hasattr(request, "user"):
             user = request.user
-        return Lesson.objects.create(owner=user, **validated_data)
+        print(validated_data, 'validated_data')
+        return Lesson.objects.create(
+            owner=user,
+            category_id=self.initial_data['category'], **validated_data)
 
     def update(self, instance, validated_data):
         instance.category = validated_data['category']
