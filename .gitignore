@@ -58,6 +58,7 @@ local.py
 db.sqlite3
 media/
 assets/
+uploads/
 
 # Flask stuff:
 instance/
