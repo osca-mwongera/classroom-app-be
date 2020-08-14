@@ -4,7 +4,9 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.dispatch import receiver
-from taggit.managers import TaggableManager
+# from taggit.managers import TaggableManager
+from django.contrib.postgres.fields import ArrayField
+
 
 
 # Create your models here.
@@ -21,7 +23,7 @@ class Lesson(models.Model):
     description = models.TextField()
     comments_enabled = models.BooleanField(default=True)
     file = models.FileField(upload_to='uploads/%Y')
-    tags = TaggableManager(blank=True)
+    tags = ArrayField(models.CharField(max_length=255), blank=True, null=True)
     date_uploaded = models.DateField(auto_now_add=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='lesson_owner')
 

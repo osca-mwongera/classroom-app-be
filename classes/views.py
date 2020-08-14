@@ -18,8 +18,11 @@ class LessonView(APIView):
 
     @staticmethod
     def post(request):
+        print(request.data, "request.data")
         serializer = LessonSerializer(data=request.data, many=False, context={'request': request})
-        if serializer.is_valid(raise_exception=True):
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        for key, value in serializer.errors.items():
+            for error in value:
+                return Response({'details': error}, status=status.HTTP_400_BAD_REQUEST)
