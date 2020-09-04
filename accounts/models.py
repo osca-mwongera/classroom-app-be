@@ -31,7 +31,7 @@ class User(AbstractUser):
         if self.first_name and self.last_name:
             name_str = self.get_full_name()
 
-        self.username = self.email
+        self.username = name_str
         super(User, self).save()
 
 

@@ -14,7 +14,6 @@ class ProfileSerializer(UserDetailsSerializer):
         profile_data = validated_data.pop('profile', {})
         instance = super(ProfileSerializer, self).update(instance, validated_data)
         profile = instance.profile
-        print(validated_data, 'validated_data')
         if profile_data:
             if profile_data.get('avatar'):
                 profile.avatar = profile_data.get('avatar')
